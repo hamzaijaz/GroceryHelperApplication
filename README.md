@@ -22,7 +22,7 @@ npm install
 ```
 
 Point the dev server at your API by copying `.env.example` to `.env` and setting `API_PROXY_TARGET`
-to the API's URL (for example `https://localhost:7123`). The default is `http://localhost:5000`.
+to the API's URL (for our backend API, it is `https://localhost:7200`). The default is `http://localhost:5000`.
 The Vite dev server proxies `/api` to that address, so you don't need CORS for local development.
 
 To call the API directly instead (for example from a production build), set `VITE_API_BASE_URL`.
