@@ -1,0 +1,72 @@
+body {
+  font-family: system-ui, sans-serif;
+  margin: 0;
+  padding: 16px;
+  background: #fff;
+  color: #222;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.grocery-form {
+  border: 1px solid #ccc;
+  padding: 12px;
+  margin-bottom: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.quantity {
+  display: flex;
+  gap: 4px;
+}
+
+.quantity input {
+  width: 80px;
+}
+
+.field-error {
+  color: #b00020;
+  font-size: 0.9em;
+}
+
+.error {
+  background: #fdecea;
+  color: #b00020;
+  border: 1px solid #f5c2c0;
+  padding: 8px;
+  margin: 8px 0;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 6px;
+  border-bottom: 1px solid #eee;
+}
+
+td button + button {
+  margin-left: 6px;
+}
