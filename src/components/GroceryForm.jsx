@@ -2,15 +2,14 @@ import { useId, useState } from 'react';
 import CategorySelect from './CategorySelect';
 import QuantityInput from './QuantityInput';
 import ErrorMessage from './ErrorMessage';
-import { CATEGORIES } from '../constants/categories';
-
 const FORM_FIELDS = ['name', 'quantity', 'category'];
 
+// Category is optional (nullable) in the API; '' in the form means "Select category" / null.
 function toFormValues(initial) {
   return {
     name: initial?.name ?? '',
     quantity: initial?.quantity ?? 1,
-    category: initial?.category ?? CATEGORIES[0],
+    category: initial?.category ?? '',
   };
 }
 
@@ -46,7 +45,7 @@ export default function GroceryForm({ title, submitLabel, initialValues, onSubmi
 
     setSaving(true);
     try {
-      await onSubmit({ name: values.name.trim(), quantity: values.quantity, category: values.category });
+      await onSubmit({ name: values.name.trim(), quantity: values.quantity, category: values.category || null });
       if (resetOnSuccess) setValues(toFormValues());
     } catch (error) {
       const serverErrors = error.fieldErrors ?? {};
@@ -90,6 +89,7 @@ export default function GroceryForm({ title, submitLabel, initialValues, onSubmi
         label="Category"
         value={values.category}
         onChange={(v) => setField('category', v)}
+        emptyOptionLabel="Select category"
         error={fieldError('category')}
       />
       <div className="actions">

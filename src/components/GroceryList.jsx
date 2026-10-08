@@ -18,7 +18,7 @@ export default function GroceryList({ groceries, onEdit, onDelete }) {
           <tr key={grocery.id}>
             <td>{grocery.name}</td>
             <td>{grocery.quantity}</td>
-            <td>{categoryLabel(grocery.category ?? '')}</td>
+            <td>{grocery.category ? categoryLabel(grocery.category) : '—'}</td>
             <td>
               <button type="button" onClick={() => onEdit(grocery)}>
                 Edit

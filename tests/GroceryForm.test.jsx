@@ -16,7 +16,31 @@ describe('GroceryForm', () => {
     const { q } = renderForm();
     expect(q.getByLabelText('Name')).toHaveValue('');
     expect(q.getByLabelText('Quantity')).toHaveValue(1);
-    expect(q.getByLabelText('Category')).toHaveValue('Dairy');
+    expect(q.getByLabelText('Category')).toHaveValue('');
+    expect(q.getByRole('option', { name: 'Select category', selected: true })).toBeInTheDocument();
+  });
+
+  it('sends a null category when none is selected', async () => {
+    const { q, onSubmit } = renderForm();
+
+    await userEvent.type(q.getByLabelText('Name'), 'Bread');
+    await userEvent.click(q.getByRole('button', { name: 'Add' }));
+
+    expect(onSubmit).toHaveBeenCalledWith({ name: 'Bread', quantity: 1, category: null });
+  });
+
+  it('sends a null category when the user switches back to "Select category"', async () => {
+    const { q, onSubmit } = renderForm({ initialValues: { name: 'Steak', quantity: 2, category: 'Meat' } });
+
+    await userEvent.selectOptions(q.getByLabelText('Category'), 'Select category');
+    await userEvent.click(q.getByRole('button', { name: 'Add' }));
+
+    expect(onSubmit).toHaveBeenCalledWith({ name: 'Steak', quantity: 2, category: null });
+  });
+
+  it('shows "Select category" when editing an item with a null category', () => {
+    const { q } = renderForm({ initialValues: { name: 'Bread', quantity: 1, category: null } });
+    expect(q.getByLabelText('Category')).toHaveValue('');
   });
 
   it('pre-fills from initial values', () => {

@@ -103,6 +103,20 @@ describe('App', () => {
       expect(form.getByLabelText('Name')).toHaveValue('');
     });
 
+    it('creates a grocery without a category', async () => {
+      await renderLoaded([milk]);
+      api.createGrocery.mockResolvedValue({ id: '4', name: 'Bread', quantity: 1, category: null });
+
+      const form = addForm();
+      expect(form.getByLabelText('Category')).toHaveValue('');
+      await userEvent.type(form.getByLabelText('Name'), 'Bread');
+      await userEvent.click(form.getByRole('button', { name: 'Add' }));
+
+      expect(api.createGrocery).toHaveBeenCalledWith({ name: 'Bread', quantity: 1, category: null });
+      expect(await screen.findByRole('cell', { name: 'Bread' })).toBeInTheDocument();
+      expect(rowFor('Bread').getByRole('cell', { name: '—' })).toBeInTheDocument();
+    });
+
     it('does not show a new item that does not match the active filter', async () => {
       await renderLoaded([milk]);
       await userEvent.selectOptions(screen.getByLabelText('Filter by category'), 'Dairy');

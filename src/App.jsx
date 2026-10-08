@@ -93,7 +93,7 @@ export default function App() {
 
       <section>
         <h2>Groceries</h2>
-        <CategorySelect id="filter" label="Filter by category" value={filter} onChange={setFilter} includeAll />
+        <CategorySelect id="filter" label="Filter by category" value={filter} onChange={setFilter} emptyOptionLabel="All categories" />
         <ErrorMessage message={actionError} onDismiss={() => setActionError('')} />
         {loading ? (
           <p>Loading…</p>
